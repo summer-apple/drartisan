@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="resources/js/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript" src="resources/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/jquery.pagination.js"></script>
 
 
 </head>
@@ -34,17 +33,34 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		   
 		  </tbody>
 		</table>
     </div>
   </div>
 
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="pagination"></div>
-		</div>				
-	</div>
+    <div class="row">
+        <div class="col-xl-12">
+            <table class="subgoods-table table table-bordered table-hover">
+              <thead>
+                <tr>
+                    <th>首图</th>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>站点</th>
+                    <th>地区</th>
+                    <th>运费</th>
+                    <th>货币</th>
+                    <th>类型</th>
+                    <th>类目</th>
+                    <th>日期</th>
+                    <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+        </div>
+    </div>
 
 
 </div>
@@ -73,10 +89,10 @@ qry(0,true);
                 type:'post',
                 dataType:'json',
                 success:function(data){
-                    $(".goods-table tbody").empty();
+                    $("table tbody").empty();
                     
                 	$.each(data.list, function(i, item) {
-                		 $(".goods-table tbody").append(
+                		 $("table tbody").append(
                 		'<tr>'+
 						
 						'	<td><a href="'+item.link+'"><img src="'+item.headimg+'"></a></td>'+

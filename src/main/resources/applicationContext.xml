@@ -16,7 +16,7 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- 设置自动搜索目录 -->
-	<context:component-scan base-package="com.eagle" />
+	<context:component-scan base-package="com.drartisan" />
 	
 	<!-- 事务管理器配置,单数据源事务 -->
 	<bean id="transactionManager"
@@ -42,14 +42,10 @@
 		<property name="annotatedClasses">
 			<list>
 				<!-- 以下用来列出所有的PO类 -->
-				<!-- <value>com.eagle.entity.Admin</value>
-				<value>com.eagle.entity.About</value>
-				<value>com.eagle.entity.Cooperation</value>
-				<value>com.eagle.entity.Img</value>
-				<value>com.eagle.entity.Job</value>
-				<value>com.eagle.entity.News</value>
-				<value>com.eagle.entity.Newstype</value>
-				<value>com.eagle.entity.Slide</value> -->
+				<value>com.drartisan.entity.Goods</value>
+				<value>com.drartisan.entity.Subgood</value>
+				<value>com.drartisan.entity.Img</value>
+				
 			</list>
 		</property>
 		<!-- 定义Hibernate SessionFactory的属性 -->
