@@ -33,6 +33,7 @@ public class Goods implements java.io.Serializable {
 	private String site;
 	private String location;
 	private Double shipfee;
+	private String currency;
 	private String type;
 	private String clas;
 	private String link;
@@ -42,13 +43,14 @@ public class Goods implements java.io.Serializable {
 	public Goods() {
 	}
 
-	public Goods(String name, String headimg, String site, String location, Double shipfee, String type, String clas,
+	public Goods(String name, String headimg, String site, String location, Double shipfee,String currency, String type, String clas,
 			String link,Date date) {
 		this.name = name;
 		this.headimg = headimg;
 		this.site = site;
 		this.location = location;
 		this.shipfee = shipfee;
+		this.currency = currency;
 		this.type = type;
 		this.clas = clas;
 		this.link = link;
@@ -110,6 +112,15 @@ public class Goods implements java.io.Serializable {
 
 	public void setShipfee(Double shipfee) {
 		this.shipfee = shipfee;
+	}
+	
+	@Column(name = "currency", length = 45)
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	@Column(name = "type", length = 45)

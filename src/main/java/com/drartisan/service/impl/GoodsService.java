@@ -1,6 +1,8 @@
 package com.drartisan.service.impl;
 
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +38,30 @@ public class GoodsService implements IGoodsService {
 		return map;
 	}
 	
+	public Goods qryOne(int id){
+		return dao.get(Goods.class, id);
+	}
 	
+	
+	public Serializable add(Goods goods) {
+		goods.setDate(new Date());
+		try {
+			return dao.save(goods);
+		} catch (Exception e) {
+			return 0;
+		}
+		
+	}
+	
+	
+	public int update(Goods goods){
+		try {
+			dao.update(goods);
+			return goods.getId();
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 	
 	
 	

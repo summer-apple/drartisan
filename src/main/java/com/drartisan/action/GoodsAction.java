@@ -1,5 +1,6 @@
 package com.drartisan.action;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.drartisan.entity.Goods;
 import com.drartisan.service.impl.GoodsService;
 
 @Controller
@@ -25,4 +27,25 @@ public class GoodsAction {
 	public Map<String,Object> qry(HttpServletRequest request,int pageNo,int pageSize){
 		return gs.qryAll( pageNo, pageSize);
 	}
+	
+	
+	@RequestMapping("/qry-one")
+	@ResponseBody
+	public Goods qryOne(HttpServletRequest request,int id){
+		return gs.qryOne(id);
+	}
+	
+	
+	@RequestMapping("/add")
+	@ResponseBody
+	public Serializable add(HttpServletRequest request,Goods goods){
+		return gs.add(goods);
+	}
+	
+	@RequestMapping("/update")
+	@ResponseBody
+	public Serializable update(HttpServletRequest request,Goods goods){
+		return gs.update(goods);
+	}
+	
 }

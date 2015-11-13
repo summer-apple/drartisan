@@ -44,15 +44,10 @@
               <thead>
                 <tr>
                     <th>首图</th>
-                    <th>ID</th>
+                    <th>Sub-ID</th>
                     <th>名称</th>
-                    <th>站点</th>
-                    <th>地区</th>
-                    <th>运费</th>
-                    <th>货币</th>
-                    <th>类型</th>
-                    <th>类目</th>
-                    <th>日期</th>
+                    <th>原价</th>
+                    <th>售价</th>
                     <th>操作</th>
                 </tr>
               </thead>
@@ -73,100 +68,59 @@
 <script type="text/javascript">
 	$().ready(function(){
 
-//第一次载入标志
+//获取地址栏参数 调用getUrlParam(name)方法
+    
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r!=null) return unescape(r[2]); return null;
+}
+            
+    var $id = getUrlParam("id");
 
-var $firstLoadFlag = true;
 
-qry(0,true);
-
-//查询方法
-		function qry(pageNo,initPageFlag){
-
-
-            $.ajax({
-                url:'goods/qry',
-                data: {'pageNo':pageNo,'pageSize':20},
+     $.ajax({
+                url:'goods/qry-one?id='+$id,
                 type:'post',
                 dataType:'json',
                 success:function(data){
-                    $("table tbody").empty();
-                    
-                	$.each(data.list, function(i, item) {
-                		 $("table tbody").append(
-                		'<tr>'+
-						
-						'	<td><a href="'+item.link+'"><img src="'+item.headimg+'"></a></td>'+
-						'	<td>'+item.id+'</td>'+
-						'	<td><a href="'+item.link+'">'+item.name+'</a></td>'+
-						'	<td>'+item.site+'</td>'+
-						'	<td>'+item.location+'</td>'+
-						'	<td>'+item.shipfee+'</td>'+
-						'	<td>'+item.currency+'</td>'+
-						'	<td>'+item.type+'</td>'+
-						'	<td>'+item.clas+'</td>'+
-						'	<td>'+transTime(item.date,false)+'</td>'+
-						'	<td><a href="edit-goods.jsp?id='+item.id+'">编辑</a></td>'+
-						'</tr>'
-                		 );
-                	
+                    $(".goods-table tbody").append(
+                        '<tr>'+
+                        '   <td><a href="'+data.link+'"><img src="'+data.headimg+'"></a></td>'+
+                        '   <td>'+data.id+'</td>'+
+                        '   <td><a href="'+data.link+'">'+data.name+'</a></td>'+
+                        '   <td>'+data.site+'</td>'+
+                        '   <td>'+data.location+'</td>'+
+                        '   <td>'+data.shipfee+'</td>'+
+                        '   <td>'+data.currency+'</td>'+
+                        '   <td>'+data.type+'</td>'+
+                        '   <td>'+data.clas+'</td>'+
+                        '   <td>'+transTime(data.date,false)+'</td>'+
+                        '   <td><a href="edit-goods.jsp?id='+data.id+'">编辑</a></td>'+
+                        '</tr>'
+                        );
 
-                	if(initPageFlag){
-                		$(".pagination").pagination(data.amount, { 
-						  prev_text: '&laquo;', 
-						  next_text: '&raquo;',
-						  ellipse_text:"...", 
-						  items_per_page: 1, 
-						  num_display_entries: 6, 
-						  current_page: 0, 
-						  num_edge_entries: 2,
-						  link_to:"javascript:void(0);",
-						  callback:pageSelectCallback
-							
-						});
-                	}
 
-                		
-                  	});
+        
+
+                    $.each(data.subgoods, function(i, item) {
+                        $(".subgoods-table tbody").append(
+                            '<tr>'+
+                            '   <td><a href="'+item.link+'"><img src="'+item.headimg+'"></a></td>'+
+                            '   <td>'+item.id+'</td>'+
+                            '   <td><a href="'+item.link+'">'+item.name+'</a></td>'+
+                            '   <td>'+item.oprice+'</td>'+
+                            '   <td>'+item.price+'</td>'+
+                            '   <td><a href="edit-goods.jsp?id='+item.id+'">编辑</a></td>'+
+                            '</tr>'
+                         );
+                    });
+
+
                 }
             });
-            
-            
-		}
 
 
-//点击页码查询
-
-		function pageSelectCallback(current_page, aa){
-			if(!$firstLoadFlag){
-			 qry(current_page+1,false);
-			}
-		}
-
-//删除
-
-	window.del = function(id){
-		$(".del-id").html(id);
-		jQuery('#modal-1').modal('show', {backdrop: 'fade'});
-	}
-
-	$(".del-confirm-btn").click(function(){
-		var $id = $(".del-id").html();
-			$.ajax({
-                url:'news/del?id='+$id,
-                type:'post',
-                dataType:'json',
-                success:function(data){
-                	if (data==true) {
-                    	alert("删除成功...");
-                   		qry(true);
-                    }else{
-                    	alert("无法删除...");
-
-                    }
-                   
-                }
-            });		
-	});
 
 
 //日期转换方法

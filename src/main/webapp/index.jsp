@@ -89,7 +89,7 @@ qry(0,true);
 						'	<td>'+item.type+'</td>'+
 						'	<td>'+item.clas+'</td>'+
 						'	<td>'+transTime(item.date,false)+'</td>'+
-						'	<td><a href="edit-goods.jsp?id='+item.id+'">编辑</a></td>'+
+						'	<td><a href="edit.jsp?id='+item.id+'">编辑</a></td>'+
 						'</tr>'
                 		 );
                 	
@@ -218,6 +218,9 @@ qry(0,true);
 			return "--";
 		}
 	}
+
+
+
 
 	});
 </script>
