@@ -44,7 +44,6 @@
 				<!-- 以下用来列出所有的PO类 -->
 				<value>com.drartisan.entity.Goods</value>
 				<value>com.drartisan.entity.Subgood</value>
-				<value>com.drartisan.entity.Img</value>
 				
 			</list>
 		</property>

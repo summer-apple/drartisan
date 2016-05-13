@@ -21,8 +21,29 @@
     .goods-form-warp{
         padding: 20px;
     }
-    .goods-headimg img{
+    .goods-headimg img,.subgoods-headimg img{
         width: 100%;
+    }
+    table img {
+      width: 50px;
+    }
+    .row-3,.row-4,.row-5{
+      display: none;
+    }
+    .img-show img{
+      width: 200px;
+      margin: 10px;
+      float: left;
+    }
+    nav{
+      margin-bottom: 30px;
+    }
+    .container-fluid>.row{
+      margin-bottom: 50px;
+    }
+    .uploadifive-button{
+      color: #FFF;
+      background-color: #000;
     }
 </style>
 
@@ -30,6 +51,20 @@
 <body>
 
 <div class="container-fluid">
+
+   <nav class="navbar navbar-light bg-faded">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.jsp">列表</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="goods.jsp?id=0">新增</a>
+        </li>
+      </ul>
+  </nav>
+  
+
+
    <div class="row row-1">
     <div class="col-xl-12">
     	<table class="goods-table table table-bordered table-hover">
@@ -64,7 +99,8 @@
                     <th>名称</th>
                     <th>原价</th>
                     <th>售价</th>
-                    <th>操作</th>
+                    <th>售价+运费</th>
+                    <th>链接</th>
                 </tr>
               </thead>
               <tbody>
@@ -110,8 +146,8 @@
                     <label for="goods-type" class="col-sm-2 form-control-label">类型</label>
                     <div class="col-sm-10">
                        <select class="c-select" name="type" id="goods-type">
-                          <option value="虚拟" selected>虚拟</option>
-                          <option value="实物">实物</option>
+                          <option value="实物" selected>实物</option>
+                          <option value="虚拟">虚拟</option>                  
                         </select>
                     </div>
                   </div>
@@ -120,12 +156,16 @@
                     <label for="goods-clas" class="col-sm-2 form-control-label">类目</label>
                     <div class="col-sm-10">
                        <select class="c-select" name="clas" id="goods-clas">
-                          <option value="珠宝饰品" selected>珠宝饰品</option>
-                          <option value="Fancy">Fancy</option>
-                          <option value="Taobao">Taobao</option>
-                          <option value="Rakuten">Rakuten</option>
-                          <option value="Nuandao">Nuandao</option>
-                          <option value="KnewOne">KnewOne</option>
+                          <option value="手工艺品" selected>手工艺品</option>
+                          <option value="珠宝首饰">珠宝首饰</option>
+                          <option value="陶瓷陶器">陶瓷陶器</option>
+                          <option value="服装服饰">服装服饰</option>
+                          <option value="袜子帽子">袜子帽子</option>
+                          <option value="3C数码">3C数码</option>
+                          <option value="植物花卉">植物花卉</option>
+                          <option value="日用百货">日用百货</option>
+                          <option value="礼物礼品">礼物礼品</option>
+                          <option value="户外运动">户外运动</option>
                         </select>
                     </div>
                   </div>
@@ -152,20 +192,13 @@
                           <option value="CNY" selected>CNY</option>
                           <option value="USD">USD</option>
                           <option value="JPY">JPY</option>
-                          <option value="EUD">EUD</option>
+                          <option value="EUD">EUIR</option>
                         </select>
                       
                     </div>
                   </div>
 
-                  <div class="form-group row">
-                    <label class="col-sm-2">首图</label>
-                    <div class="col-sm-10">
-                        <input type="hidden" name="headimg" id="goods-headimg">
-                        <input id="file_upload" type="file" name="upload" style="display:none;" />
-                        <div id="tip-queue" style="display:none;"></div>
-                    </div>
-                  </div>
+                  
 
                   
 
@@ -178,10 +211,85 @@
                 </form>
          </div>
          <div class="col-xl-6 goods-headimg">
-             <img src="resources/images/a.jpg">
+             <div class="form-group row">
+                    <label class="col-sm-2">首图</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" name="headimg" id="goods-headimg">
+                        <input id="file_upload" type="file" name="upload" style="display:none;" />
+                        <div id="tip-queue" style="display:none;"></div>
+                    </div>
+             </div>
+            <img>
          </div>
     </div>
 
+
+    <div class="row row-4">
+         <div class="col-xl-6 goods-form-warp">
+             <form id="subgoods-form">
+                <input type="hidden" name="id" id="subgoods-id" value="0">
+                <input type="hidden" name="goodsid" id="subgoods-goodsid" value="0">
+                  <div class="form-group row">
+                    <label for="subgoods-name" class="col-sm-2 form-control-label">名称</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="name" class="form-control" id="subgoods-name" placeholder="名称">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="subgoods-oprice" class="col-sm-2 form-control-label">原价</label>
+                    <div class="col-sm-10">
+                      <input type="number" name="oprice" class="form-control" id="subgoods-oprice" placeholder="原价">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="subgoods-price" class="col-sm-2 form-control-label">售价</label>
+                    <div class="col-sm-10">
+                      <input type="number" name="price" class="form-control" id="subgoods-price" placeholder="售价">
+                    </div>
+                  </div>
+
+                   <div class="form-group row">
+                    <label for="subgoods-link" class="col-sm-2 form-control-label">链接</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="link" class="form-control" id="subgoods-link" placeholder="链接">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button id="save-subgoods-btn" type="submit" class="btn btn-secondary">保 存</button>
+                    </div>
+                  </div>
+                </form>
+         </div>
+         <div class="col-xl-6 subgoods-headimg">
+             <div class="form-group row">
+                    <label class="col-sm-2">Sub首图</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" name="headimg" id="subgoods-headimg">
+                        <input id="file_upload_sub" type="file" name="upload" style="display:none;" />
+                        <div id="tip-queue-sub" style="display:none;"></div>
+                    </div>
+             </div>
+             <img>
+         </div>
+    </div>
+
+    <div class="row row-5">
+      <div class="form-group row">
+                    <label class="col-sm-2">Images</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" name="headimg" id="subgoods-headimg">
+                        <input id="file_upload_imgs" type="file" name="upload" style="display:none;" />
+                        <div id="tip-queue-imgs" style="display:none;"></div>
+                    </div>
+      </div>
+      <div class="col-xl-12 img-show">
+        
+      </div>
+    </div>
 
 </div>
 
@@ -204,7 +312,7 @@ function getUrlParam(name) {
     var $id = getUrlParam("id");
 
 if ($id==0) {//新建
-
+  $(".row-3,.row-4,.row-5").show();
 }else{//查询
          $.ajax({
                 url:'goods/qry-one?id='+$id,
@@ -218,12 +326,12 @@ if ($id==0) {//新建
                         '   <td><a href="'+data.link+'">'+data.name+'</a></td>'+
                         '   <td>'+data.site+'</td>'+
                         '   <td>'+data.location+'</td>'+
-                        '   <td>'+data.shipfee+'</td>'+
+                        '   <td>'+data.shipfee+' CNY</td>'+
                         '   <td>'+data.currency+'</td>'+
                         '   <td>'+data.type+'</td>'+
                         '   <td>'+data.clas+'</td>'+
                         '   <td>'+transTime(data.date,false)+'</td>'+
-                        '   <td><a href="edit-goods.jsp?id='+data.id+'">编辑</a></td>'+
+                       '   <td><a href="'+data.link+'" target="_blank">前往</a></td>'+
                         '</tr>'
                         );
 
@@ -236,12 +344,16 @@ if ($id==0) {//新建
                             '   <td><a href="'+item.link+'"><img src="'+item.headimg+'"></a></td>'+
                             '   <td>'+item.id+'</td>'+
                             '   <td><a href="'+item.link+'">'+item.name+'</a></td>'+
-                            '   <td>'+item.oprice+'</td>'+
-                            '   <td>'+item.price+'</td>'+
-                            '   <td><a href="edit-goods.jsp?id='+item.id+'">编辑</a></td>'+
+                            '   <td>'+item.oprice+' '+data.currency+'</td>'+
+                            '   <td>'+item.price+' CNY</td>'+
+                            '   <td>'+(item.price *1 + data.shipfee*1) +' CNY</td>'+
+                            '   <td><a href="'+item.link+'" target="_blank">前往</a></td>'+
                             '</tr>'
                          );
                     });
+
+
+                    $("#subgoods-goodsid").val($id);
 
 
                 }
@@ -249,32 +361,11 @@ if ($id==0) {//新建
 }
 
 
-// //添加
-//     $("#save-goods-btn").click(function(){
-//          $("#goods-form").ajaxSubmit({
-//                                     url:"goods/add",
-//                                     type:'post',
-//                                     dataType:'json',
-//                                     success:function(data){
-//                                         if (data!=0) {
-//                                             alert("保存成功...");
-//                                             $("#goods-form")[0].reset();
-//                                             $("#id").val(0);
-                                            
-//                                         }else{
-//                                             alert("保存出错...");
-//                                         };
-//                                     }
-//                                 });
-//     });
-          
-
-
 
 
 //添加
     $("#goods-form").validate({
-                            rules: {
+                      rules: {
                                 name: {
                                     required: true
                                 },
@@ -304,7 +395,7 @@ if ($id==0) {//新建
                                     $url ='goods/add';
                                 }else{
                                     $url ='goods/update';
-                                }
+                                } 
 
                                 $("#goods-form").ajaxSubmit({
                                     url:$url,
@@ -313,8 +404,87 @@ if ($id==0) {//新建
                                     success:function(data){
                                         if (data!=0) {
                                             alert("保存成功...");
-                                            $(".row-3").hide();
-                                            $("#id").val(data);
+                                            $("#goods-id,#subgoods-goodsid").val(data);
+                                            //添加goods-headimg       
+                                            initUpload($("#file_upload"),data,1,"tip-queue");
+
+
+                                        }else{
+                                            alert("保存出错...");
+                                        };
+                                    }
+                                });
+                            }
+                        });
+
+
+
+//添加
+    $("#subgoods-form").validate({
+                         rules: {
+                                name: {
+                                    required: true
+                                },
+                                
+                                oprice: {
+                                    number:true,
+                                    required:true
+                                },
+                                
+                                price: {
+                                    number:true,
+                                    required:true
+                                },
+                                
+                                link: {
+                                    required:true
+                                }
+                            },
+                            
+                            messages: {
+                                name: {
+                                    required: '必填项目'
+                                },
+                                
+                                oprice: {
+                                    required: '必填项目',
+                                    number:'必须为非负整数'
+                                },
+                                
+                                price: {
+                                    required: '必填项目',
+                                    number:'必须为非负整数'
+                                },
+                                
+                                link: {
+                                    required: '必填项目'
+                                }
+                            },
+                            
+                            submitHandler: function(form)
+                            {
+                                var $url ='';
+
+                                if ($("#subgoods-id").val()==0) {
+                                    $url ='subgoods/add';
+                                }else{
+                                    $url ='subgoods/update';
+                                }
+                           
+
+                                $("#subgoods-form").ajaxSubmit({
+                                    url:$url,
+                                    type:'post',
+                                    dataType:'json',
+                                    success:function(data){
+                                        if (data!=0) {
+                                            alert("保存成功...");
+                                            $("#subgoods-id").val(0);
+                                            //添加subgoods-headimg       
+                                            initUpload($("#file_upload_sub"),data,2,"tip-queue-sub");
+                                            //添加imgs 
+                                            initUpload($("#file_upload_imgs"),data,3,"tip-queue-imgs");
+
                                         }else{
                                             alert("保存出错...");
                                         };
@@ -328,112 +498,98 @@ if ($id==0) {//新建
 
 
 
+function initUpload(obj,id,level,queue){
 
-
-
-
-
-                       
-
-//添加goods-headimg
-
-        $('#file_upload').uploadifive({
+        obj.uploadifive({
             'width'           : 75,                 // The width of the button
             'height'          : 30,                 // The height of the button
             'auto' : true,   //取消自动上传 
             'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
             'fileObjName'  : 'file',        //文件对象
-            'buttonText'   : '上传首图',   //按钮显示文字 
-            'queueID'      : 'tip-queue', //drug and drop box's ID 
+            'buttonText'   : '上传图片',   //按钮显示文字 
+            'queueID'      : queue, //drug and drop box's ID 
             'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
             'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
             'formData'     : {
-                                "goodname":$("#goods-name").val(),
-                                "subgoodsname":"",
-                                "goodsid":$("#goods-id").val(),
-                                "subgoodsid":"",
-                                "index":"",
-                                "level":1
-
+                                "id":id,
+                                "level":level
                               },//The other data want to send
             'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
             'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
             'uploadLimit'     : 100,                  // The maximum number of files you can upload
             'onUploadComplete' : function(file, data) { //文件上传成功后执行 
                      var url = $.parseJSON(data); 
-                     $(".goods-headimg img").attr("src",url);
-                     $("#goods-headimg").val(url);
-                    }
 
-                }); 
+                     if (level==1) {
+                        $(".goods-headimg img").attr("src",url);
 
-
-//添加subgoods-headimg
-
-        $('#file_upload').uploadifive({
-            'width'           : 75,                 // The width of the button
-            'height'          : 30,                 // The height of the button
-            'auto' : true,   //取消自动上传 
-            'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
-            'fileObjName'  : 'file',        //文件对象
-            'buttonText'   : '上传首图',   //按钮显示文字 
-            'queueID'      : 'tip-queue', //drug and drop box's ID 
-            'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
-            'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
-            'formData'     : {
-                                "goodname":$(".goods-name").val(),
-                                "subgoodsname":$(".subgoods-name").val(),
-                                "goodsid":$(".goods-id").val(),
-                                "subgoodsid":$(".subgoods-id").val(),
-                                "index":"",
-                                "level":2
-
-                              },//The other data want to send
-            'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
-            'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
-            'uploadLimit'     : 100,                  // The maximum number of files you can upload
-            'onUploadComplete' : function(file, data) { //文件上传成功后执行 
-                        var url = $.parseJSON(data); 
+                         $.ajax({
+                                url:'goods/qry-one?id='+id,
+                                type:'post',
+                                dataType:'json',
+                                success:function(data){
+                                $(".goods-table tbody").html(
+                                            '<tr>'+
+                                            '   <td><a href="'+data.link+'"><img src="'+data.headimg+'"></a></td>'+
+                                            '   <td>'+data.id+'</td>'+
+                                            '   <td><a href="'+data.link+'">'+data.name+'</a></td>'+
+                                            '   <td>'+data.site+'</td>'+
+                                            '   <td>'+data.location+'</td>'+
+                                            '   <td>'+data.shipfee+'</td>'+
+                                            '   <td>'+data.currency+'</td>'+
+                                            '   <td>'+data.type+'</td>'+
+                                            '   <td>'+data.clas+'</td>'+
+                                            '   <td>'+transTime(data.date,false)+'</td>'+
+                                            '   <td><a href="'+data.link+'" target="_blank">前往</a></td>'+
+                                            '</tr>'
+                                            );
+                                 }
+                         });
+                     }else if (level==2) {
                         $(".subgoods-headimg img").attr("src",url);
+
+                        $.ajax({
+                                url:'subgoods/qry-one?id='+id,
+                                type:'post',
+                                dataType:'json',
+                                success:function(data){
+                                  $(".subgoods-table tbody").append(
+                                      '<tr>'+
+                                      '   <td><a href="'+data.link+'"><img src="'+data.headimg+'"></a></td>'+
+                                      '   <td>'+data.id+'</td>'+
+                                      '   <td><a href="'+data.link+'">'+data.name+'</a></td>'+
+                                      '   <td>'+data.oprice+'</td>'+
+                                      '   <td>'+data.price+'</td>'+
+                                      '   <td><a href="'+data.link+'" target="_blank">前往</a></td>'+
+                                      '</tr>'
+                                   );
+                                 }
+                         });
+
+                     }else{
+                        $(".img-show").append('<img src="'+url+'">');
+                     }
+                     
+                     
                     }
 
                 }); 
+}
 
 
-//添加subgoods-img
 
-        $('#file_upload').uploadifive({
-            'width'           : 75,                 // The width of the button
-            'height'          : 30,                 // The height of the button
-            'auto' : true,   //取消自动上传 
-            'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
-            'fileObjName'  : 'file',        //文件对象
-            'buttonText'   : '上传首图',   //按钮显示文字 
-            'queueID'      : 'tip-queue', //drug and drop box's ID 
-            'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
-            'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
-            'formData'     : {
-                                "goodname":$(".goods-name").val(),
-                                "subgoodsname":$(".subgoods-name").val(),
-                                "goodsid":$(".goods-id").val(),
-                                "subgoodsid":$(".subgoods-id").val(),
-                                "index":$("#index").val(),
-                                "level":3
+                       
 
-                              },//The other data want to send
-            'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
-            'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
-            'uploadLimit'     : 100,                  // The maximum number of files you can upload
-            'onUploadComplete' : function(file, data) { //文件上传成功后执行 
-                var url = $.parseJSON(data); 
-                
-                $("#index").val($("#index").val()+1);
 
-                $(".img-show").append('<img src='+url+' style="width:200px;">');
-                
-                    }
 
-                }); 
+
+// //添加subgoods-headimg
+
+
+
+
+// //添加subgoods-img
+
 
 
 

@@ -9,12 +9,36 @@
 <script type="text/javascript" src="resources/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.pagination.js"></script>
-
+<style type="text/css">
+    body{
+        margin:50px;
+    }
+    table img {
+      width: 50px;
+    }
+        nav{
+      margin-bottom: 30px;
+    }
+</style>
 
 </head>
 <body>
 
 <div class="container-fluid">
+
+
+   <nav class="navbar navbar-light bg-faded">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.jsp">列表</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="goods.jsp?id=0">新增</a>
+        </li>
+      </ul>
+  </nav>
+
+
    <div class="row">
     <div class="col-xl-12">
     	<table class="goods-table table table-bordered table-hover">
@@ -84,33 +108,31 @@ qry(0,true);
 						'	<td><a href="'+item.link+'">'+item.name+'</a></td>'+
 						'	<td>'+item.site+'</td>'+
 						'	<td>'+item.location+'</td>'+
-						'	<td>'+item.shipfee+'</td>'+
+						'	<td>'+item.shipfee+' CNY</td>'+
 						'	<td>'+item.currency+'</td>'+
 						'	<td>'+item.type+'</td>'+
 						'	<td>'+item.clas+'</td>'+
 						'	<td>'+transTime(item.date,false)+'</td>'+
-						'	<td><a href="edit.jsp?id='+item.id+'">编辑</a></td>'+
+						'	<td><a href="goods.jsp?id='+item.id+'" target="_blank">查看</a></td>'+
 						'</tr>'
                 		 );
-                	
-
-                	if(initPageFlag){
-                		$(".pagination").pagination(data.amount, { 
-						  prev_text: '&laquo;', 
-						  next_text: '&raquo;',
-						  ellipse_text:"...", 
-						  items_per_page: 1, 
-						  num_display_entries: 6, 
-						  current_page: 0, 
-						  num_edge_entries: 2,
-						  link_to:"javascript:void(0);",
-						  callback:pageSelectCallback
-							
-						});
-                	}
-
-                		
+	
                   	});
+
+                    if(initPageFlag){
+                        $(".pagination").pagination(data.amount, { 
+                          prev_text: '&laquo;', 
+                          next_text: '&raquo;',
+                          ellipse_text:"...", 
+                          items_per_page: 1, 
+                          num_display_entries: 6, 
+                          current_page: 0, 
+                          num_edge_entries: 2,
+                          link_to:"javascript:void(0);",
+                          callback:pageSelectCallback
+                            
+                        });
+                    }
                 }
             });
             
@@ -121,9 +143,7 @@ qry(0,true);
 //点击页码查询
 
 		function pageSelectCallback(current_page, aa){
-			if(!$firstLoadFlag){
 			 qry(current_page+1,false);
-			}
 		}
 
 //删除

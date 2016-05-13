@@ -12,17 +12,39 @@ import org.springframework.stereotype.Service;
 
 import com.drartisan.dao.BaseDao;
 import com.drartisan.entity.Goods;
+import com.drartisan.entity.Subgood;
 import com.drartisan.service.IGoodsService;
 @Service
 public class GoodsService implements IGoodsService {
 
 	@Autowired
 	private BaseDao<Goods> dao;
-	
+	@Autowired
+	private BaseDao<Subgood> sdao;
+	@Autowired
+	private ExchangeRateService ers;
 	
 	public Map<String, Object> qryAll(int pageNo, int pageSize) {
 		String hql = "FROM Goods ORDER BY id DESC";
 		List<Goods> list = dao.findByPage(hql, pageNo, pageSize);
+		
+		for(int i=0;i<list.size();i++){
+			Goods goods = list.get(i);
+			
+			double rate = ers.getRequest3(goods.getCurrency(), "CNY");
+			
+			if (!goods.getCurrency().equals("CNY")) {
+				
+				goods.setShipfee( (double)Math.round(rate * goods.getShipfee()));
+				
+				for(Subgood subgood : goods.getSubgoods()){
+					subgood.setPrice(subgood.getOprice() * rate);
+					sdao.update(subgood);
+				}	
+			}	
+			
+		}
+		
 		long amount = dao.findCount("SELECT COUNT(*) " + hql);
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
@@ -39,7 +61,19 @@ public class GoodsService implements IGoodsService {
 	}
 	
 	public Goods qryOne(int id){
-		return dao.get(Goods.class, id);
+		Goods goods = dao.get(Goods.class, id);
+		double rate = ers.getRequest3(goods.getCurrency(), "CNY");
+		
+		if (!goods.getCurrency().equals("CNY")) {
+			
+			goods.setShipfee( (double)Math.round(rate * goods.getShipfee()));
+			
+			for(Subgood subgood : goods.getSubgoods()){
+				subgood.setPrice((double)Math.round(subgood.getOprice() * rate));
+			}	
+		}	
+
+		return goods;
 	}
 	
 	
