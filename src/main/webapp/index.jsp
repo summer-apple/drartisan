@@ -27,16 +27,7 @@
 <div class="container-fluid">
 
 
-   <nav class="navbar navbar-light bg-faded">
-      <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.jsp">列表</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="goods.jsp?id=0">新增</a>
-        </li>
-      </ul>
-  </nav>
+<%@include file="nav.jsp" %>
 
 
    <div class="row">

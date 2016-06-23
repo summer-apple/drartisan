@@ -52,16 +52,7 @@
 
 <div class="container-fluid">
 
-   <nav class="navbar navbar-light bg-faded">
-      <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.jsp">列表</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="goods.jsp?id=0">新增</a>
-        </li>
-      </ul>
-  </nav>
+   <%@include file="nav.jsp" %>
   
 
 
@@ -198,7 +189,19 @@
                     </div>
                   </div>
 
+                  <div class="form-group row">
+                    <label for="brief" class="col-sm-2 form-control-label">简介</label>
+                    <div class="col-sm-10">
+                      <textarea type="text" name="brief" class="form-control" id="brief" placeholder="简介"></textarea>
+                    </div>
+                  </div>
                   
+                  <div class="form-group row">
+                    <label for="description" class="col-sm-2 form-control-label">描述</label>
+                    <div class="col-sm-10">
+                      <textarea type="text" name="description" class="form-control" id="description" placeholder="描述"></textarea>
+                    </div>
+                  </div>
 
                   
 
@@ -257,6 +260,8 @@
                     </div>
                   </div>
                   
+                  
+                  
                   <div class="form-group row">
                     <div class="col-sm-offset-2 col-sm-10">
                       <button id="save-subgoods-btn" type="submit" class="btn btn-secondary">保 存</button>
@@ -266,8 +271,8 @@
          </div>
          <div class="col-xl-6 subgoods-headimg">
              <div class="form-group row">
-                    <label class="col-sm-2">Sub首图</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-3">子商品首图</label>
+                    <div class="col-sm-9">
                         <input type="hidden" name="headimg" id="subgoods-headimg">
                         <input id="file_upload_sub" type="file" name="upload" style="display:none;" />
                         <div id="tip-queue-sub" style="display:none;"></div>
