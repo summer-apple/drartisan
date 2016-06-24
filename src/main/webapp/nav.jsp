@@ -5,7 +5,10 @@
           <a class="nav-link" href="index.jsp">待上架</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="uploaded.jsp">已上架</a>
+          <a class="nav-link" href="index.jsp?state=1">已上架</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="index.jsp?state=2">已下架</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="goods.jsp?id=0">新增</a>

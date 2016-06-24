@@ -40,13 +40,14 @@ public class Goods implements java.io.Serializable {
 	private Date date;
 	private String brief;
 	private String description;
+	private Integer state;
 	private Set<Subgood> subgoods = new LinkedHashSet<>();
 
 	public Goods() {
 	}
 
 	public Goods(String name, String headimg, String site, String location, Double shipfee,String currency, String type, String clas,
-			String link,Date date,String brief,String description) {
+			String link,Date date,String brief,String description,Integer state) {
 		this.name = name;
 		this.headimg = headimg;
 		this.site = site;
@@ -59,6 +60,7 @@ public class Goods implements java.io.Serializable {
 		this.date = date;
 		this.brief = brief;
 		this.description = description;
+		this.state = state;
 	}
 
 	@Id
@@ -188,6 +190,14 @@ public class Goods implements java.io.Serializable {
 
 	public void setBrief(String brief) {
 		this.brief = brief;
+	}
+	@Column(name = "state")
+	public Integer getState() {
+		return this.state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 }

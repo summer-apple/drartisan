@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -72,6 +72,17 @@
 <script type="text/javascript">
 	$().ready(function(){
 
+		//获取地址栏参数 调用getUrlParam(name)方法
+
+		function getUrlParam(name) {
+			var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if (r!=null) return unescape(r[2]); return null;
+		}
+
+			var $state = getUrlParam("state");
+			if($state == null){$state=0}
+		
 //第一次载入标志
 
 var $firstLoadFlag = true;
@@ -83,16 +94,22 @@ qry(0,true);
 
 
             $.ajax({
-                url:'goods/qry',
-                data: {'pageNo':pageNo,'pageSize':20},
+                url:'goods/qry-by-state',
+                data: {'state':$state,'pageNo':pageNo,'pageSize':20},
                 type:'post',
                 dataType:'json',
                 success:function(data){
                     $(".goods-table tbody").empty();
                     
                 	$.each(data.list, function(i, item) {
+                    	$operation = ""
+                    	if(item.state == 1){//已上架
+                    		$operation = '<a onclick="changeState('+item.id+',2)">下架</a>';
+                        }else{
+                        	$operation = '<a onclick="changeState('+item.id+',1)">上架</a>';
+                        }
                 		 $(".goods-table tbody").append(
-                		'<tr>'+
+                		'<tr id="goods-'+item.id+'">'+
 						
 						'	<td><a href="'+item.link+'"><img src="'+item.headimg+'"></a></td>'+
 						'	<td>'+item.id+'</td>'+
@@ -104,7 +121,7 @@ qry(0,true);
 						'	<td>'+item.type+'</td>'+
 						'	<td>'+item.clas+'</td>'+
 						'	<td>'+transTime(item.date,false)+'</td>'+
-						'	<td><a href="goods.jsp?id='+item.id+'" target="_blank">查看</a></td>'+
+						'	<td><a href="goods.jsp?id='+item.id+'" target="_blank">查看</a>  '+$operation+'</td>'+
 						'</tr>'
                 		 );
 	
@@ -135,6 +152,26 @@ qry(0,true);
 
 		function pageSelectCallback(current_page, aa){
 			 qry(current_page+1,false);
+		}
+//更改状态
+		window.changeState = function(id,state){
+			
+			$.ajax({
+                url:'goods/change-state',
+                data: {'id':id,'state':state},
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                	if (data==true) {
+                    	alert("操作成功...");
+                   		$("#goods-"+id).remove();
+                    }else{
+                    	alert("操作失败...");
+
+                    }
+                   
+                }
+            });	
 		}
 
 //删除

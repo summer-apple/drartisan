@@ -28,6 +28,12 @@ public class GoodsAction {
 		return gs.qryAll( pageNo, pageSize);
 	}
 	
+	@RequestMapping("/qry-by-state")
+	@ResponseBody
+	public Map<String,Object> qryByState(HttpServletRequest request,int state,int pageNo,int pageSize){
+		return gs.qryByState(state, pageNo, pageSize);
+	}
+	
 	
 	@RequestMapping("/qry-one")
 	@ResponseBody
@@ -40,6 +46,12 @@ public class GoodsAction {
 	@ResponseBody
 	public Serializable add(HttpServletRequest request,Goods goods){
 		return gs.add(goods);
+	}
+	
+	@RequestMapping("/change-state")
+	@ResponseBody
+	public boolean changeState(HttpServletRequest request,int id,int state){
+		return gs.changeState(id, state);
 	}
 	
 	@RequestMapping("/update")

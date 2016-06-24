@@ -60,6 +60,46 @@ public class GoodsService implements IGoodsService {
 		return map;
 	}
 	
+	
+	
+	public Map<String, Object> qryByState(int state,int pageNo,int pageSize) {
+		
+		String hql = "FROM Goods WHERE state="+state+" ORDER BY id DESC";
+		List<Goods> list = dao.findByPage(hql, pageNo, pageSize);
+		
+		for(int i=0;i<list.size();i++){
+			Goods goods = list.get(i);
+			
+			double rate = ers.getRequest3(goods.getCurrency(), "CNY");
+			
+			if (!goods.getCurrency().equals("CNY")) {
+				
+				goods.setShipfee( (double)Math.round(rate * goods.getShipfee()));
+				
+				for(Subgood subgood : goods.getSubgoods()){
+					subgood.setPrice(subgood.getOprice() * rate);
+					sdao.update(subgood);
+				}	
+			}	
+			
+		}
+		
+		long amount = dao.findCount("SELECT COUNT(*) " + hql);
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		if (amount == 0) {
+			map.put("amount", 0);
+		} else if (amount <= pageSize) {
+			map.put("amount", 1);
+		}else if (amount%pageSize==0) {
+			map.put("amount", amount/pageSize);
+		} else {
+			map.put("amount", amount / pageSize + 1);
+		}
+		
+		return map;
+	}
+	
 	public Goods qryOne(int id){
 		Goods goods = dao.get(Goods.class, id);
 		double rate = ers.getRequest3(goods.getCurrency(), "CNY");
@@ -85,6 +125,17 @@ public class GoodsService implements IGoodsService {
 			return 0;
 		}
 		
+	}
+	
+	public boolean changeState(int id,int state) {
+		try {
+			Goods goods = dao.get(Goods.class, id);
+			goods.setState(state);
+			dao.update(goods);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 	

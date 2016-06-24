@@ -91,7 +91,7 @@
                     <th>原价</th>
                     <th>售价</th>
                     <th>售价+运费</th>
-                    <th>链接</th>
+                    <th>源链接</th>
                 </tr>
               </thead>
               <tbody>
@@ -104,6 +104,7 @@
          <div class="col-xl-6 goods-form-warp">
              <form id="goods-form">
                 <input type="hidden" name="id" id="goods-id" value="0">
+                <input type="hidden" name="state" id="goods-state" value="0">
 
                   <div class="form-group row">
                     <label for="goods-name" class="col-sm-2 form-control-label">名称</label>
@@ -254,9 +255,9 @@
                   </div>
 
                    <div class="form-group row">
-                    <label for="subgoods-link" class="col-sm-2 form-control-label">链接</label>
+                    <label for="subgoods-link" class="col-sm-2 form-control-label">源链接</label>
                     <div class="col-sm-10">
-                      <input type="text" name="link" class="form-control" id="subgoods-link" placeholder="链接">
+                      <input type="text" name="link" class="form-control" id="subgoods-link" placeholder="源链接">
                     </div>
                   </div>
                   
